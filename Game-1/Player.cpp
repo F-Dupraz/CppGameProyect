@@ -12,5 +12,5 @@ void Player::draw(SDL_Renderer* pRenderer)
 
 void Player::update()
 {
-	m_x -= 1;
+	//
 }

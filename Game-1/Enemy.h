@@ -1,19 +1,22 @@
 #pragma once
 
-#ifndef __Player__
-#define __Player__
+#ifndef __Enemy__
+#define __Enemy__
 
 #include <string>
 
 #include "GameObject.h"
 
-class Player : public GameObject
+class Enemy : public GameObject
 {
 public:
 	void load(int x, int y, int width, int height, std::string textureID);
 	void draw(SDL_Renderer* pRenderer);
 	void update();
 	void clean() {};
+	int isVisibleX();
+
+	bool isAddingX = true;
 };
 
-#endif __Player__
+#endif __Enemy__

@@ -5,10 +5,12 @@
 
 #include <SDL.h>
 #include <iostream>
+#include <vector>
 
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -20,6 +22,7 @@ public:
 
 	void render();
 	void update();
+	void draw();
 	void handleEvents();
 	void clean();
 
@@ -37,8 +40,13 @@ private:
 
 	bool m_bRunning;
 
-	GameObject m_go;
-	Player m_player;
+	std::vector<GameObject*> m_gameObjects;
+
+	GameObject* m_go;
+	Player* m_player;
+	Enemy* m_enemy1;
+	Enemy* m_enemy2;
+	Enemy* m_enemy3;
 };
 
 #endif /* defined(__Game__) */

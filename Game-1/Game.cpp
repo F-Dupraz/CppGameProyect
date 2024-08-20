@@ -12,11 +12,29 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
             if (m_pRenderer != 0) // renderer init success
             {
-                if (!TheTextureManager::Instance()->load("./Images/pixil-frame-0.png", "animate", m_pRenderer))
+                m_player = new Player();
+                m_enemy1 = new Enemy();
+                m_enemy2 = new Enemy();
+                m_enemy3 = new Enemy();
+
+                if (!TheTextureManager::Instance()->load("./Images/background.bmp", "background", m_pRenderer))
                     return false;
 
-                m_go.load(10, 100, 80, 100, "animate");
-                m_player.load(600, 400, 80, 100, "animate");
+                if (!TheTextureManager::Instance()->load("./Images/pixil-frame-0.png", "hinchaT", m_pRenderer))
+                    return false;
+
+                if (!TheTextureManager::Instance()->load("./Images/pixil-frame-1.png", "hinchaPirata", m_pRenderer))
+                    return false;
+
+                m_player->load(((width / 2) - 50), 50, 100, 100, "hinchaT");
+                m_enemy1->load(50, 600, 100, 100, "hinchaPirata");
+                m_enemy2->load(125, 480, 100, 100, "hinchaPirata");
+                m_enemy3->load(200, 360, 100, 100, "hinchaPirata");
+
+                m_gameObjects.push_back(m_player);
+                m_gameObjects.push_back(m_enemy1);
+                m_gameObjects.push_back(m_enemy2);
+                m_gameObjects.push_back(m_enemy3);
             }
             else
             {
@@ -43,15 +61,28 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 void Game::render()
 {
     SDL_RenderClear(m_pRenderer);
-    m_go.draw(m_pRenderer);
-    m_player.draw(m_pRenderer);
+
+    TextureManager::Instance()->draw("background", 0, 0, 720, 720, m_pRenderer);
+
+    for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
+        m_gameObjects[i]->draw(m_pRenderer);
+
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update()
 {
-    m_go.update();
-    m_player.update();
+    for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) 
+        m_gameObjects[i]->update();
+}
+
+void Game::draw()
+{
+    for (std::vector<GameObject*>::size_type i = 0; i !=
+        m_gameObjects.size(); i++)
+    {
+        m_gameObjects[i]->draw(m_pRenderer);
+    }
 }
 
 void Game::handleEvents()

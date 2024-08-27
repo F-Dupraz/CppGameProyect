@@ -1,13 +1,13 @@
 #include "Enemy.h"
 
-void Enemy::load(int x, int y, int width, int height, std::string textureID)
+Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject(pParams)
 {
-	GameObject::load(x, y, width, height, textureID);
+    this->m_velocity.setX(2);
 }
 
-void Enemy::draw(SDL_Renderer* pRenderer)
+void Enemy::draw()
 {
-	GameObject::draw(pRenderer);
+	SDLGameObject::draw();
 }
 
 void Enemy::update()
@@ -17,26 +17,25 @@ void Enemy::update()
     if (this->isVisibleX() == 1)
     {
         this->isAddingX = true;
-        m_x += 2;
+        this->m_position += this->m_velocity;
     }
     else if (this->isVisibleX() == 2) {
         this->isAddingX = false;
-        m_x -= 2;
+        this->m_position -= this->m_velocity;
     }
     else if (this->isVisibleX() == 0) {
         if (this->isAddingX)
-            m_x += 2;
+            this->m_position += this->m_velocity;
         else
-            m_x -= 2;
+            this->m_position -= this->m_velocity;
     }
-
 }
 
 int Enemy::isVisibleX()
 {
-    if (this->m_x <= 0)
+    if (this->m_position.getX() <= 0)
         return 1;
-    else if ((this->m_x + this->m_width) > 720)
+    else if ((this->m_position.getX() + this->m_width) > 720)
         return 2;
     else
         return 0;

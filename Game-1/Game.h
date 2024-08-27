@@ -8,15 +8,25 @@
 #include <vector>
 
 #include "TextureManager.h"
+#include "InputHandler.h"
 #include "GameObject.h"
+#include "SDLGameObject.h"
 #include "Player.h"
 #include "Enemy.h"
 
 class Game
 {
 public:
-	Game() {};
-	//¬Game();
+
+	static Game* Instance()
+	{
+		if (s_pInstance == 0)
+		{
+			s_pInstance = new Game();
+			return s_pInstance;
+		}
+		return s_pInstance;
+	}
 
 	bool init(const char* title, int xpos, int ypos, int width, int height, int flags);
 
@@ -25,10 +35,16 @@ public:
 	void draw();
 	void handleEvents();
 	void clean();
+	void quit() { m_bRunning = false; }
 
 	bool running() { return m_bRunning; }
+	SDL_Renderer* getRenderer() const { return m_pRenderer; }
 
 private:
+
+	Game() {};
+	static Game* s_pInstance;
+
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 
@@ -42,11 +58,8 @@ private:
 
 	std::vector<GameObject*> m_gameObjects;
 
-	GameObject* m_go;
-	Player* m_player;
-	Enemy* m_enemy1;
-	Enemy* m_enemy2;
-	Enemy* m_enemy3;
 };
 
-#endif /* defined(__Game__) */
+typedef Game TheGame;
+
+#endif // __Game__

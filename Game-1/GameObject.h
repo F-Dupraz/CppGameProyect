@@ -8,16 +8,21 @@
 #include <string>
 
 #include "TextureManager.h"
+#include "LoaderParams.h"
 
 class GameObject
 {
 public:
-	virtual void load(int x, int y, int width, int height, std::string textureID);
-	virtual void draw(SDL_Renderer* pRenderer);
-	virtual void update();
-	virtual void clean() {};
+
+	virtual void draw() = 0;
+	virtual void update() = 0;
+	virtual void clean() = 0;
 
 protected:
+
+	GameObject(const LoaderParams* pParams) {}
+	virtual ~GameObject() {}
+
 	std::string m_textureID;
 
 	int m_currentFrame;
@@ -29,5 +34,5 @@ protected:
 	int m_y;
 };
 
-#endif //__GameObject__
+#endif // __GameObject__
 

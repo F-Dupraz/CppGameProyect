@@ -1,5 +1,7 @@
 #include "Game.h"
 
+Game* Game::s_pInstance = nullptr;
+
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
@@ -12,11 +14,6 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
             if (m_pRenderer != 0) // renderer init success
             {
-                m_player = new Player();
-                m_enemy1 = new Enemy();
-                m_enemy2 = new Enemy();
-                m_enemy3 = new Enemy();
-
                 if (!TheTextureManager::Instance()->load("./Images/background.bmp", "background", m_pRenderer))
                     return false;
 
@@ -26,15 +23,11 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
                 if (!TheTextureManager::Instance()->load("./Images/pixil-frame-1.png", "hinchaPirata", m_pRenderer))
                     return false;
 
-                m_player->load(((width / 2) - 50), 50, 100, 100, "hinchaT");
-                m_enemy1->load(50, 600, 100, 100, "hinchaPirata");
-                m_enemy2->load(125, 480, 100, 100, "hinchaPirata");
-                m_enemy3->load(200, 360, 100, 100, "hinchaPirata");
-
-                m_gameObjects.push_back(m_player);
-                m_gameObjects.push_back(m_enemy1);
-                m_gameObjects.push_back(m_enemy2);
-                m_gameObjects.push_back(m_enemy3);
+                m_gameObjects.push_back(new Player(new LoaderParams(((720 / 2) - 50), 70, 100, 100, "hinchaT")));
+                m_gameObjects.push_back(new Enemy(new LoaderParams(470, 240, 100, 100, "hinchaPirata")));
+                m_gameObjects.push_back(new Enemy(new LoaderParams(520, 360, 100, 100, "hinchaPirata")));
+                m_gameObjects.push_back(new Enemy(new LoaderParams(570, 480, 100, 100, "hinchaPirata")));
+                m_gameObjects.push_back(new Enemy(new LoaderParams(620, 600, 100, 100, "hinchaPirata")));
             }
             else
             {
@@ -65,7 +58,7 @@ void Game::render()
     TextureManager::Instance()->draw("background", 0, 0, 720, 720, m_pRenderer);
 
     for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
-        m_gameObjects[i]->draw(m_pRenderer);
+        m_gameObjects[i]->draw();
 
     SDL_RenderPresent(m_pRenderer);
 }
@@ -81,23 +74,7 @@ void Game::draw()
     for (std::vector<GameObject*>::size_type i = 0; i !=
         m_gameObjects.size(); i++)
     {
-        m_gameObjects[i]->draw(m_pRenderer);
-    }
-}
-
-void Game::handleEvents()
-{
-    SDL_Event event;
-    if (SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            m_bRunning = false;
-            break;
-        default:
-            break;
-        }
+        m_gameObjects[i]->draw();
     }
 }
 
@@ -106,5 +83,11 @@ void Game::clean()
     std::cout << "cleaning game\n";
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
+    TheInputHandler::Instance()->clean();
     SDL_Quit();
+}
+
+void Game::handleEvents()
+{
+    TheInputHandler::Instance()->update();
 }

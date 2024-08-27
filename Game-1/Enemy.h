@@ -5,18 +5,21 @@
 
 #include <string>
 
-#include "GameObject.h"
+#include "SDLGameObject.h"
 
-class Enemy : public GameObject
+class Enemy : public SDLGameObject
 {
 public:
-	void load(int x, int y, int width, int height, std::string textureID);
-	void draw(SDL_Renderer* pRenderer);
+
+	Enemy(const LoaderParams* pParams);
+
+	void draw();
 	void update();
 	void clean() {};
+
 	int isVisibleX();
 
-	bool isAddingX = true;
+	bool isAddingX = false;
 };
 
-#endif __Enemy__
+#endif // __Enemy__

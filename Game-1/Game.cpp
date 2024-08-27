@@ -14,20 +14,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
             if (m_pRenderer != 0) // renderer init success
             {
+                std::cout << "renderer creation success\n";
+
                 if (!TheTextureManager::Instance()->load("./Images/background.bmp", "background", m_pRenderer))
                     return false;
-
-                if (!TheTextureManager::Instance()->load("./Images/pixil-frame-0.png", "hinchaT", m_pRenderer))
-                    return false;
-
-                if (!TheTextureManager::Instance()->load("./Images/pixil-frame-1.png", "hinchaPirata", m_pRenderer))
-                    return false;
-
-                m_gameObjects.push_back(new Player(new LoaderParams(((720 / 2) - 50), 70, 100, 100, "hinchaT")));
-                m_gameObjects.push_back(new Enemy(new LoaderParams(470, 240, 100, 100, "hinchaPirata")));
-                m_gameObjects.push_back(new Enemy(new LoaderParams(520, 360, 100, 100, "hinchaPirata")));
-                m_gameObjects.push_back(new Enemy(new LoaderParams(570, 480, 100, 100, "hinchaPirata")));
-                m_gameObjects.push_back(new Enemy(new LoaderParams(620, 600, 100, 100, "hinchaPirata")));
             }
             else
             {
@@ -48,6 +38,22 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
     }
     std::cout << "init success\n";
     m_bRunning = true; // everything inited successfully, start the main loop
+
+    //if (!TheTextureManager::Instance()->load("./Images/pixil-frame-0.png", "hinchaT", m_pRenderer))
+    //    return false;
+
+    //if (!TheTextureManager::Instance()->load("./Images/pixil-frame-1.png", "hinchaPirata", m_pRenderer))
+    //    return false;
+
+    //m_gameObjects.push_back(new Player(new LoaderParams(((720 / 2) - 50), 70, 100, 100, "hinchaT")));
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(470, 240, 100, 100, "hinchaPirata")));
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(520, 360, 100, 100, "hinchaPirata")));
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(570, 480, 100, 100, "hinchaPirata")));
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(620, 600, 100, 100, "hinchaPirata")));
+
+    m_pGameStateMachine = new GameStateMachine();
+    m_pGameStateMachine->changeState(new MenuState());
+
     return true;
 }
 
@@ -55,18 +61,14 @@ void Game::render()
 {
     SDL_RenderClear(m_pRenderer);
 
-    TextureManager::Instance()->draw("background", 0, 0, 720, 720, m_pRenderer);
-
-    for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
-        m_gameObjects[i]->draw();
+    m_pGameStateMachine->render();
 
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update()
 {
-    for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) 
-        m_gameObjects[i]->update();
+    m_pGameStateMachine->update();
 }
 
 void Game::draw()
@@ -90,4 +92,9 @@ void Game::clean()
 void Game::handleEvents()
 {
     TheInputHandler::Instance()->update();
+
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
+    {
+        m_pGameStateMachine->changeState(new PlayState());
+    }
 }

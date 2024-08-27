@@ -10,17 +10,18 @@
 class MenuState : public GameState
 {
 public:
-	virtual void update() = 0;
-	virtual void render() = 0;
 
-	virtual bool onEnter() = 0;
-	virtual bool onExit() = 0;
+	virtual void update();
+	virtual void render();
+
+	virtual bool onEnter();
+	virtual bool onExit();
 
 	virtual std::string getStateID() const { return s_menuID; }
 
 private:
-	static const std::string s_menuID;
 
-}
+	static const std::string s_menuID;
+};
 
 #endif // __MenuState__

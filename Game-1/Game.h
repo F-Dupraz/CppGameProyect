@@ -13,6 +13,9 @@
 #include "SDLGameObject.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "GameStateMachine.h"
+#include "MenuState.h"
+#include "PlayState.h"
 
 class Game
 {
@@ -44,6 +47,8 @@ private:
 
 	Game() {};
 	static Game* s_pInstance;
+
+	GameStateMachine* m_pGameStateMachine;
 
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;

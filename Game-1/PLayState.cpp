@@ -1,21 +1,27 @@
-#include "MenuState.h"
+#include <string>
+#include <iostream>
 
-const std::string MenuState::s_menuID = "PLAY";
+#include "PlayState.h"
 
-void MenuState::update()
+const std::string PlayState::s_playID = "PLAY";
+
+void PlayState::update()
 {
-	// nothing for now
+	//
 }
-void MenuState::render()
+
+void PlayState::render()
 {
-	// nothing for now
+	//
 }
-bool MenuState::onEnter()
+
+bool PlayState::onEnter()
 {
 	std::cout << "entering PlayState\n";
 	return true;
 }
-bool MenuState::onExit()
+
+bool PlayState::onExit()
 {
 	std::cout << "exiting PlayState\n";
 	return true;

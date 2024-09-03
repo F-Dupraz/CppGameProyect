@@ -3,14 +3,9 @@
 #ifndef __Game__
 #define __Game__
 
-#include <SDL.h>
-#include <iostream>
-#include <vector>
-
+#include "SDL.h"
 #include "TextureManager.h"
-#include "InputHandler.h"
 #include "GameObject.h"
-#include "SDLGameObject.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "GameStateMachine.h"
@@ -23,19 +18,17 @@ public:
 
 	static Game* Instance()
 	{
-		if (s_pInstance == 0)
-		{
+		if (s_pInstance == nullptr)
 			s_pInstance = new Game();
-			return s_pInstance;
-		}
+
 		return s_pInstance;
 	}
 
-	bool init(const char* title, int xpos, int ypos, int width, int height, int flags);
+	~Game() {}
 
+	bool init(const char* title, int xpos, int ypos, int width, int height, int flags);
 	void render();
 	void update();
-	void draw();
 	void handleEvents();
 	void clean();
 	void quit() { m_bRunning = false; }
@@ -46,25 +39,20 @@ public:
 private:
 
 	Game() {};
-	static Game* s_pInstance;
-
-	GameStateMachine* m_pGameStateMachine;
 
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
-
-	SDL_Texture* m_pTexture; 
+	SDL_Texture* m_pTexture;
 	SDL_Rect m_sourceRectangle;
 	SDL_Rect m_destinationRectangle;
 
+	bool m_bRunning;
 	int m_currentFrame;
 
-	bool m_bRunning;
+	GameStateMachine* m_pGameStateMachine;
 
-	std::vector<GameObject*> m_gameObjects;
-
+	static Game* s_pInstance;
 };
 
 typedef Game TheGame;
-
 #endif // __Game__

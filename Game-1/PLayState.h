@@ -3,8 +3,6 @@
 #ifndef __PlayState__
 #define __PlayState__
 
-#include <iostream>
-
 #include "GameState.h"
 
 class PlayState : public GameState

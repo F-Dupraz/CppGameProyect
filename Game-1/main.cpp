@@ -3,6 +3,8 @@
 const int SCREEN_WIDTH = 720;
 const int SCREEN_HEIGHT = 720;
 
+Game* g_game = nullptr;
+
 const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
 
@@ -26,7 +28,7 @@ int main(int argc, char* args[])
 		}
 	}
 	else
-		std::cout << "Game init failure - " << SDL_GetError() << std::endl;
+		std::cout << "Game init failure - " << SDL_GetError() << " " << IMG_GetError() << std::endl;
 
 	TheGame::Instance()->clean();
 	return 0;

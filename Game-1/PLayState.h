@@ -3,7 +3,10 @@
 #ifndef __PlayState__
 #define __PlayState__
 
+#include <vector>
+
 #include "GameState.h"
+#include "GameObject.h"
 
 class PlayState : public GameState
 {
@@ -20,6 +23,8 @@ public:
 private:
 
 	static const std::string s_playID;
+
+	std::vector<GameObject*> m_gameObjects;
 };
 
 #endif // __PlayState__

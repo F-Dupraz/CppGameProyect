@@ -31,6 +31,8 @@ protected:
 	int m_currentRow;
 	int m_currentFrame;
 
+	bool isImgRotated = false;
+
 	std::string m_textureID;
 };
 

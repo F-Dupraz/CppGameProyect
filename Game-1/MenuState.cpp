@@ -22,7 +22,7 @@ void MenuState::render()
 bool MenuState::onEnter()
 {
 	if (TheTextureManager::Instance() == nullptr) {
-		std::cerr << "Error: TheTextureManager instance is nullptr " << TheTextureManager::Instance() << ".\n";
+		std::cerr << "Error: TheTextureManager instance is nullptr.\n";
 		return false;
 	}
 
@@ -38,8 +38,8 @@ bool MenuState::onEnter()
 		return false;
 
 
-	GameObject* button1 = new MenuButton(new LoaderParams((720 / 2) - 170, (720 - (720 / 3)), 120, 66, "playbutton"));
-	GameObject* button2 = new MenuButton(new LoaderParams((720 / 2) + 50, (720 - (720 / 3)), 120, 66, "exitbutton"));
+	GameObject* button1 = new MenuButton(new LoaderParams((720 / 2) - 170, (720 - (720 / 3)), 120, 66, "playbutton"), s_menuToPlay);
+	GameObject* button2 = new MenuButton(new LoaderParams((720 / 2) + 50, (720 - (720 / 3)), 120, 66, "exitbutton"), s_exitFromMenu);
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);
 	std::cout << "entering MenuState\n";
@@ -56,4 +56,14 @@ bool MenuState::onExit()
 	TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
 	std::cout << "exiting MenuState\n";
 	return true;
+}
+
+void MenuState::s_menuToPlay()
+{
+	TheGame::Instance()->getStateMachine()->changeState(new PlayState());
+}
+
+void MenuState::s_exitFromMenu()
+{
+	TheGame::Instance()->quit();
 }

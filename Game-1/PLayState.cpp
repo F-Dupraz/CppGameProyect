@@ -2,12 +2,17 @@
 #include <iostream>
 
 #include "PlayState.h"
+#include "PauseState.h"
+#include "InputHandler.h"
 #include "Game.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
+	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
+		TheGame::Instance()->getStateMachine()->pushState(new PauseState());
+
 	for (int i = 0; i < m_gameObjects.size(); i++)
 		m_gameObjects[i]->update();
 }

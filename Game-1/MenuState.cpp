@@ -38,10 +38,10 @@ bool MenuState::onEnter()
 		return false;
 
 
-	GameObject* button1 = new MenuButton(new LoaderParams((720 / 2) - 170, (720 - (720 / 3)), 120, 66, "playbutton"), s_menuToPlay);
-	GameObject* button2 = new MenuButton(new LoaderParams((720 / 2) + 50, (720 - (720 / 3)), 120, 66, "exitbutton"), s_exitFromMenu);
-	m_gameObjects.push_back(button1);
-	m_gameObjects.push_back(button2);
+	GameObject* menu_button1 = new MenuButton(new LoaderParams((720 / 2) - 170, (720 - (720 / 3)), 120, 66, "playbutton"), s_menuToPlay);
+	GameObject* menu_button2 = new MenuButton(new LoaderParams((720 / 2) + 50, (720 - (720 / 3)), 120, 66, "exitbutton"), s_exitFromMenu);
+	m_gameObjects.push_back(menu_button1);
+	m_gameObjects.push_back(menu_button2);
 	std::cout << "entering MenuState\n";
 	return true;
 }

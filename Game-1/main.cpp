@@ -23,6 +23,7 @@ int main(int argc, char* args[])
 			TheGame::Instance()->render();
 
 			frameTime = SDL_GetTicks() - frameStart;
+
 			if (frameTime < DELAY_TIME)
 				SDL_Delay((int)(DELAY_TIME - frameTime));
 		}

@@ -19,7 +19,7 @@ public:
 
 	int isVisibleX();
 
-	bool isAddingX = false;
+	bool isAddingX = true;
 };
 
 #endif // __Enemy__

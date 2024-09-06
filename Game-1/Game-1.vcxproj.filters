@@ -78,6 +78,9 @@
     <ClCompile Include="GameOver.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -128,5 +131,13 @@
     <ClInclude Include="GameOver.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Datadrivenjson.json">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

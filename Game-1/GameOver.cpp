@@ -37,11 +37,11 @@ bool GameOverState::onEnter()
 	if (!TheTextureManager::Instance()->load("./Images/play-button.png", "playbutton", TheGame::Instance()->getRenderer()))
 		return false;
 
-	GameObject* button1 = new MenuButton(new LoaderParams((720 / 2) - 170, (720 / 3), 120, 66, "menubutton"), s_gameOverToMain);
-	GameObject* button2 = new MenuButton(new LoaderParams((720 / 2) + 50, (720 / 3), 120, 66, "playbutton"), s_restartPlay);
+	//GameObject* button1 = new MenuButton(new LoaderParams((720 / 2) - 170, (720 / 3), 120, 66, "menubutton", 2), s_gameOverToMain);
+	//GameObject* button2 = new MenuButton(new LoaderParams((720 / 2) + 50, (720 / 3), 120, 66, "playbutton", 2), s_restartPlay);
 
-	m_gameObjects.push_back(button1);
-	m_gameObjects.push_back(button2);
+	//m_gameObjects.push_back(button1);
+	//m_gameObjects.push_back(button2);
 
 	std::cout << "entering GameOverState\n";
 	return true;

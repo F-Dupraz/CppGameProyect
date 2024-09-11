@@ -14,16 +14,16 @@
       "Objects": [
         {
           "type": "MenuButton",
-          "x": 190, /* (720 / 2) - 170 */
-          "y": 480, /* 720 - (720 / 3) */
+          "x": 190,
+          "y": 480,
           "width": 120,
           "height": 66,
           "textureID": "playbutton"
         },
         {
           "type": "MenuButton",
-          "x": 410, /* (720 / 2) + 50 */
-          "y": 480, /* 720 - (720 / 3) */
+          "x": 410,
+          "y": 480,
           "width": 120,
           "height": 66,
           "textureID": "exitbutton"

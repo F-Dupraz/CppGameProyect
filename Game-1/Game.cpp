@@ -6,6 +6,7 @@
 #include "InputHandler.h"
 #include "GameStateMachine.h"
 
+using json = nlohmann::json;
 
 Game* Game::s_pInstance = nullptr;
 
@@ -52,6 +53,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	}
 
 	std::cout << "init success\n";
+
 	m_bRunning = true; 
 
 	m_pGameStateMachine = new GameStateMachine();

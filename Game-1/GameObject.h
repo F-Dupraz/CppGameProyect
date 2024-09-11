@@ -22,18 +22,8 @@ public:
 
 protected:
 
-	GameObject(const LoaderParams* pParams) {}
+	GameObject() {}
 	virtual ~GameObject() {}
-
-	std::string m_textureID;
-
-	int m_currentFrame;
-	int m_currentRow;
-
-	int m_width;
-	int m_height;
-	int m_x;
-	int m_y;
 };
 
 #endif // __GameObject__

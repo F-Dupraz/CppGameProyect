@@ -19,7 +19,7 @@ public:
 		m_callbackID(callbackID),
 		m_animSpeed(animSpeed)
 	{
-
+		//
 	}
 
 	int getX() const { return m_x; }

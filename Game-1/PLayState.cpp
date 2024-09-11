@@ -41,15 +41,15 @@ bool PlayState::onEnter()
 	if (!TheTextureManager::Instance()->load("./Images/pixil-frame-1.png", "Enemy1", TheGame::Instance()->getRenderer()))
 		return false;
 
-	GameObject* player = new Player(new LoaderParams((720 / 2), 100, 85, 100, "PlayerT"));
-	GameObject* enemy_1 = new Enemy(new LoaderParams(620, 400, 85, 100, "Enemy1"));
-	GameObject* enemy_2 = new Enemy(new LoaderParams(520, 500, 85, 100, "Enemy1"));
-	GameObject* enemy_3 = new Enemy(new LoaderParams(420, 600, 85, 100, "Enemy1"));
+	//GameObject* player = new Player(new LoaderParams((720 / 2), 100, 85, 100, "PlayerT", 5));
+	//GameObject* enemy_1 = new Enemy(new LoaderParams(620, 400, 85, 100, "Enemy1", 5));
+	//GameObject* enemy_2 = new Enemy(new LoaderParams(520, 500, 85, 100, "Enemy1", 5));
+	//GameObject* enemy_3 = new Enemy(new LoaderParams(420, 600, 85, 100, "Enemy1", 5));
 
-	m_gameObjects.push_back(player);
+	/*m_gameObjects.push_back(player);
 	m_gameObjects.push_back(enemy_1);
 	m_gameObjects.push_back(enemy_2);
-	m_gameObjects.push_back(enemy_3);
+	m_gameObjects.push_back(enemy_3);*/
 
 	std::cout << "entering PlayState\n";
 	return true;

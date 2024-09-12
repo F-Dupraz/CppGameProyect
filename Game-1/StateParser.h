@@ -16,8 +16,8 @@ public:
 	bool parseState(const char* stateFile, std::string stateID, std::vector<GameObject*>* pObjects, std::vector<std::string>* pTextureIDs);
 
 private:
-	//void parseObjects(nlohmann::json_pointer* pStateRoot, std::vector<GameObject*>* pObjects);
-	//void parseTextures(nlohmann::json_pointer* psStateRoot, std::vector<std::string>* pTextureIDs);
+	void parseObjects(json pStateRoot, std::vector<GameObject*>* pObjects);
+	void parseTextures(json pStateRoot, std::vector<std::string>* pTextureIDs);
 };
 
 #endif // __StateParser__

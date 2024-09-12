@@ -1,6 +1,7 @@
 {
-  "States": {
-    "MenuState": {
+  "States": [
+    {
+      "StateID": "MenuState",
       "Textures": [
         {
           "filename": "play-button.png",
@@ -30,5 +31,5 @@
         }
       ]
     }
-  }
+  ]
 }

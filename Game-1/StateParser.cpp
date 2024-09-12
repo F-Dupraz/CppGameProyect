@@ -13,9 +13,11 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
 	std::ifstream i("./Datadrivenjson.json");
 
 	jsonDoc = json::parse(i);
+	std::cout << jsonDoc << std::endl << std::endl << std::endl;
 
 	json pRoot = jsonDoc["States"];
-	
+	std::cout << pRoot << std::endl << std::endl << std::endl;
+
 	json pStateRoot = NULL;
 
 	for (int i = 0; i < sizeof(pRoot); ++i)
@@ -23,15 +25,21 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
 		if (pRoot[i] == NULL)
 			break;
 
+		std::cout << pRoot[i] << std::endl << std::endl << std::endl;
+
+		std::cout << pRoot[i]["StateID"] << std::endl << std::endl << std::endl;
+
 		if (pRoot[i]["StateID"] == stateID)
 			pStateRoot = pRoot[i];
 	}
 
 	json pTextureRoot = pStateRoot["Textures"];
+	std::cout << pTextureRoot << std::endl << std::endl << std::endl;
 
 	parseTextures(pTextureRoot, pTextureIDs);
 
 	json pObjectRoot = pStateRoot["Objects"];
+	std::cout << pObjectRoot << std::endl << std::endl << std::endl;
 
 	parseObjects(pObjectRoot, pObjects);
 
@@ -43,7 +51,9 @@ void StateParser::parseTextures(json pStateRoot, std::vector<std::string>* pText
 	for (int i = 0; i < sizeof(pStateRoot); ++i)
 	{
 		std::string filenameAtribute = pStateRoot[i]["filename"];
+		std::cout << filenameAtribute << std::endl;
 		std::string idAtribute = pStateRoot[i]["ID"];
+		std::cout << idAtribute << std::endl;
 		pTextureIDs->push_back(idAtribute);
 		TheTextureManager::Instance()->load(filenameAtribute, idAtribute, TheGame::Instance()->getRenderer());
 	}
@@ -56,12 +66,19 @@ void StateParser::parseObjects(json pStateRoot, std::vector<GameObject*>* pObjec
 		int x, y, width, height, numFrames, callbackID, animSpeed;
 
 		x = pStateRoot[i]["x"];
+		std::cout << x << std::endl;
 		y = pStateRoot[i]["y"];
+		std::cout << 7 << std::endl;
 		width = pStateRoot[i]["width"];
-	    height = pStateRoot[i]["height"];
-	    numFrames = pStateRoot[i]["numFrames"];
-	    callbackID = pStateRoot[i]["callbackID"];
-	    animSpeed = pStateRoot[i]["animSpeed"];
+		std::cout << width << std::endl;
+		height = pStateRoot[i]["height"];
+		std::cout << height << std::endl;
+		numFrames = pStateRoot[i]["numFrames"];
+		std::cout << numFrames << std::endl;
+		callbackID = pStateRoot[i]["callbackID"];
+		std::cout << callbackID << std::endl;
+		animSpeed = pStateRoot[i]["animSpeed"];
+		std::cout << animSpeed << std::endl;
 
 		std::string textureID = pStateRoot[i]["textureID"];
 

@@ -8,14 +8,14 @@
 
 const std::string GameOverState::s_gameoverID = "GAMEOVER";
 
-void GameOverState::s_gameOverToMain()
-{
-	TheGame::Instance()->getStateMachine()->changeState(new MenuState());
-}
-void GameOverState::s_restartPlay()
-{
-	TheGame::Instance()->getStateMachine()->changeState(new PlayState());
-}
+//void GameOverState::s_gameOverToMain()
+//{
+//	TheGame::Instance()->getStateMachine()->changeState(new MenuState());
+//}
+//void GameOverState::s_restartPlay()
+//{
+//	TheGame::Instance()->getStateMachine()->changeState(new PlayState());
+//}
 
 void GameOverState::update()
 {

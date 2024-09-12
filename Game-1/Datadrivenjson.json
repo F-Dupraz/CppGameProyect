@@ -1,7 +1,7 @@
 {
   "States": [
     {
-      "StateID": "MenuState",
+      "StateID": "MENU",
       "Textures": [
         {
           "filename": "play-button.png",
@@ -19,6 +19,8 @@
           "y": 480,
           "width": 120,
           "height": 66,
+          "numFrames": 2,
+          "callbackID": "1",
           "textureID": "playbutton"
         },
         {
@@ -27,6 +29,8 @@
           "y": 480,
           "width": 120,
           "height": 66,
+          "numFrames": 2,
+          "callbackID": "2",
           "textureID": "exitbutton"
         }
       ]

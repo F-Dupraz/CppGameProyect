@@ -5,6 +5,8 @@
 #include "TextureManager.h"
 #include "InputHandler.h"
 #include "GameStateMachine.h"
+#include "MenuButton.h"
+#include "MainMenuState.h"
 
 using json = nlohmann::json;
 
@@ -56,9 +58,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
 	m_bRunning = true; 
 
-	m_pGameStateMachine = new GameStateMachine();
+	GameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
 
-	m_pGameStateMachine->changeState(new MenuState());
+	m_pGameStateMachine = new GameStateMachine();
+	m_pGameStateMachine->changeState(new MainMenuState());
 
 	return true;
 }

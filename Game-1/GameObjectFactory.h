@@ -33,8 +33,10 @@ public:
 		return s_pInstance;
 	}
 
-	bool registerTyoe(std::string typeID, BaseCreator* pCreator)
+	bool registerType(std::string typeID, BaseCreator* pCreator)
 	{
+		std::cout << "Entering registerType!\n";
+
 		std::map<std::string, BaseCreator*>::iterator it = m_creators.find(typeID);
 
 		if (it != m_creators.end())

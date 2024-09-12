@@ -8,6 +8,8 @@
 #include <string>
 #include <nlohmann/json.hpp>
 
+using json = nlohmann::json;
+
 class GameObject;
 
 class StateParser

@@ -8,15 +8,15 @@
 
 const std::string PauseState::s_pauseID = "PAUSE";
 
-void PauseState::s_pauseToMain()
-{
-	TheGame::Instance()->getStateMachine()->changeState(new MenuState());
-}
-
-void PauseState::s_resumePlay()
-{
-	TheGame::Instance()->getStateMachine()->popState();
-}
+//void PauseState::s_pauseToMain()
+//{
+//	TheGame::Instance()->getStateMachine()->changeState(new MenuState());
+//}
+//
+//void PauseState::s_resumePlay()
+//{
+//	TheGame::Instance()->getStateMachine()->popState();
+//}
 
 void PauseState::update()
 {

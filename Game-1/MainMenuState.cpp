@@ -1,13 +1,33 @@
+#include <string>
+#include <iostream>
+
 #include "MainMenuState.h"
+#include "MenuButton.h"
+#include "TextureManager.h"
+#include "Game.h"
 #include "StateParser.h"
 
 const std::string MainMenuState::s_menuID = "MENU";
 
+void MainMenuState::update()
+{
+	for (int i = 0; i < m_gameObjects.size(); i++)
+	{
+		m_gameObjects[i]->update();
+	}
+}
+
+void MainMenuState::render()
+{
+	for (int i = 0; i < m_gameObjects.size(); i++)
+	{
+		m_gameObjects[i]->draw();
+	}
+}
+
 bool MainMenuState::onEnter()
 {
 	StateParser stateParser;
-
-	std::cout << "Entramos al MainMenuState!\n";
 
 	stateParser.parseState("Datadrivenjson.json", s_menuID, &m_gameObjects, &m_textureIDList);
 
@@ -20,6 +40,32 @@ bool MainMenuState::onEnter()
 	std::cout << "Entering MenuState\n";
 
 	return true;
+}
+
+bool MainMenuState::onExit()
+{
+	for (int i = 0; i < m_gameObjects.size(); i++)
+		m_gameObjects[i]->clean();
+
+	m_gameObjects.clear();
+
+	for (int i = 0; i < m_textureIDList.size(); i++)
+		TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
+
+	std::cout << "exiting MainMenuState" << std::endl;
+	return true;
+}
+
+void MainMenuState::s_menuToPlay()
+{
+	std::cout << "Play button clicked" << std::endl;
+	TheGame::Instance()->getStateMachine()->changeState(new PlayState());
+}
+
+void MainMenuState::s_exitFromMenu()
+{
+	std::cout << "Exit button clicked" << std::endl;
+	TheGame::Instance()->quit();
 }
 
 void MainMenuState::setCallbacks(const std::vector<Callback>& callbacks)

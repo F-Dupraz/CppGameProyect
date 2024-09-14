@@ -59,6 +59,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	m_bRunning = true; 
 
 	GameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
+	GameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
+	GameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
 
 	m_pGameStateMachine = new GameStateMachine();
 	m_pGameStateMachine->changeState(new MainMenuState());

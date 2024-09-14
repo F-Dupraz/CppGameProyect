@@ -4,11 +4,11 @@
       "StateID": "MENU",
       "Textures": [
         {
-          "filename": "play-button.png",
+          "filename": "./Images/play-button.png",
           "ID": "playbutton"
         },
         {
-          "filename": "exit-button.png",
+          "filename": "./Images/exit-button.png",
           "ID": "exitbutton"
         }
       ],
@@ -20,7 +20,8 @@
           "width": 120,
           "height": 66,
           "numFrames": 2,
-          "callbackID": "1",
+          "callbackID": 1,
+          "animSpeed": 1,
           "textureID": "playbutton"
         },
         {
@@ -30,8 +31,68 @@
           "width": 120,
           "height": 66,
           "numFrames": 2,
-          "callbackID": "2",
+          "callbackID": 2,
+          "animSpeed": 1,
           "textureID": "exitbutton"
+        }
+      ]
+    },
+    {
+      "StateID": "PLAY",
+      "Textures": [
+        {
+          "filename": "./Images/pixil-frame-0.png",
+          "ID": "hinchaT"
+        },
+        {
+          "filename": "./Images/pixil-frame-1.png",
+          "ID": "hinchaB1"
+        }
+      ],
+      "Objects": [
+        {
+          "type": "Player",
+          "x": 310,
+          "y": 75,
+          "width": 100,
+          "height": 100,
+          "numFrames": 5,
+          "callbackID": 0,
+          "animSpeed": 1,
+          "textureID": "hinchaT"
+        },
+        {
+          "type": "Enemy",
+          "x": 175,
+          "y": 310,
+          "width": 100,
+          "height": 75,
+          "numFrames": 5,
+          "callbackID": 0,
+          "animSpeed": 1,
+          "textureID": "hinchaB1"
+        },
+        {
+          "type": "Enemy",
+          "x": 125,
+          "y": 420,
+          "width": 100,
+          "height": 75,
+          "numFrames": 5,
+          "callbackID": 0,
+          "animSpeed": 1,
+          "textureID": "hinchaB1"
+        },
+        {
+          "type": "Enemy",
+          "x": 75,
+          "y": 530,
+          "width": 100,
+          "height": 75,
+          "numFrames": 5,
+          "callbackID": 0,
+          "animSpeed": 1,
+          "textureID": "hinchaB1"
         }
       ]
     }

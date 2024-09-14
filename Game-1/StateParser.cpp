@@ -1,8 +1,17 @@
 #include <fstream>
+#include <iostream>
+
+#define JSON_TRY_USER if(true)
+#define JSON_CATCH_USER(exception) if(false)
+#define JSON_THROW_USER(exception)                           \
+    {std::clog << "Error in " << __FILE__ << ":" << __LINE__ \
+               << " (function " << __FUNCTION__ << ") - "    \
+               << (exception).what() << std::endl;           \
+     std::abort();}
 
 #include "StateParser.h"
 #include "GameObjectFactory.h"
-#include "Game.h";
+#include "Game.h"
 
 using json = nlohmann::json;
 
@@ -13,33 +22,28 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
 	std::ifstream i("./Datadrivenjson.json");
 
 	jsonDoc = json::parse(i);
-	std::cout << jsonDoc << std::endl << std::endl << std::endl;
 
 	json pRoot = jsonDoc["States"];
-	std::cout << pRoot << std::endl << std::endl << std::endl;
 
 	json pStateRoot = NULL;
 
-	for (int i = 0; i < sizeof(pRoot); ++i)
+	for (int i = 0; i < pRoot.size(); ++i)
 	{
-		if (pRoot[i] == NULL)
+		if (pRoot[i].is_null())
 			break;
 
-		std::cout << pRoot[i] << std::endl << std::endl << std::endl;
-
-		std::cout << pRoot[i]["StateID"] << std::endl << std::endl << std::endl;
-
 		if (pRoot[i]["StateID"] == stateID)
+		{
 			pStateRoot = pRoot[i];
+			break;
+		}
 	}
 
 	json pTextureRoot = pStateRoot["Textures"];
-	std::cout << pTextureRoot << std::endl << std::endl << std::endl;
 
 	parseTextures(pTextureRoot, pTextureIDs);
 
 	json pObjectRoot = pStateRoot["Objects"];
-	std::cout << pObjectRoot << std::endl << std::endl << std::endl;
 
 	parseObjects(pObjectRoot, pObjects);
 
@@ -48,37 +52,29 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
 
 void StateParser::parseTextures(json pStateRoot, std::vector<std::string>* pTextureIDs)
 {
-	for (int i = 0; i < sizeof(pStateRoot); ++i)
+	for (int i = 0; i < pStateRoot.size(); ++i)
 	{
 		std::string filenameAtribute = pStateRoot[i]["filename"];
-		std::cout << filenameAtribute << std::endl;
 		std::string idAtribute = pStateRoot[i]["ID"];
-		std::cout << idAtribute << std::endl;
 		pTextureIDs->push_back(idAtribute);
+
 		TheTextureManager::Instance()->load(filenameAtribute, idAtribute, TheGame::Instance()->getRenderer());
 	}
 }
 
 void StateParser::parseObjects(json pStateRoot, std::vector<GameObject*>* pObjects)
 {
-	for (int i = 0; i < sizeof(pStateRoot); ++i)
+	for (int i = 0; i < pStateRoot.size(); ++i)
 	{
 		int x, y, width, height, numFrames, callbackID, animSpeed;
 
 		x = pStateRoot[i]["x"];
-		std::cout << x << std::endl;
 		y = pStateRoot[i]["y"];
-		std::cout << 7 << std::endl;
 		width = pStateRoot[i]["width"];
-		std::cout << width << std::endl;
 		height = pStateRoot[i]["height"];
-		std::cout << height << std::endl;
 		numFrames = pStateRoot[i]["numFrames"];
-		std::cout << numFrames << std::endl;
 		callbackID = pStateRoot[i]["callbackID"];
-		std::cout << callbackID << std::endl;
 		animSpeed = pStateRoot[i]["animSpeed"];
-		std::cout << animSpeed << std::endl;
 
 		std::string textureID = pStateRoot[i]["textureID"];
 

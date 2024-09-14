@@ -12,7 +12,7 @@ class Player : public SDLGameObject
 {
 public:
 
-	Player();
+	Player() {};
 
 	void draw();
 	void update();

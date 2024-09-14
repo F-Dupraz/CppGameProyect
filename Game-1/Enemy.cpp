@@ -12,6 +12,7 @@ void Enemy::draw()
 
 void Enemy::load(const LoaderParams* pParams)
 {
+    SDLGameObject::load(pParams);
     this->m_velocity.setX(4);
 }
 

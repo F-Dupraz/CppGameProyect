@@ -4,6 +4,7 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "GameOver.h"
+#include "StateParser.h"
 #include "InputHandler.h"
 #include "Game.h"
 
@@ -15,16 +16,27 @@ void PlayState::update()
 		TheGame::Instance()->getStateMachine()->pushState(new PauseState());
 
 	for (int i = 0; i < m_gameObjects.size(); i++)
-		m_gameObjects[i]->update();
+	{
+		if (i > 0)
+		{
+			if (checkCollision(dynamic_cast<SDLGameObject*> (m_gameObjects[0]), dynamic_cast<SDLGameObject*> (m_gameObjects[1])))
+			{
+				TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
+				break;
+			}
+		}
 
-	if (checkCollision(dynamic_cast<SDLGameObject*> (m_gameObjects[0]), dynamic_cast<SDLGameObject*> (m_gameObjects[1])))
+		m_gameObjects[i]->update();
+	}	
+
+	/*if (checkCollision(dynamic_cast<SDLGameObject*> (m_gameObjects[0]), dynamic_cast<SDLGameObject*> (m_gameObjects[1])))
 		TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
 
 	if (checkCollision(dynamic_cast<SDLGameObject*> (m_gameObjects[0]), dynamic_cast<SDLGameObject*> (m_gameObjects[2])))
 		TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
 
 	if (checkCollision(dynamic_cast<SDLGameObject*> (m_gameObjects[0]), dynamic_cast<SDLGameObject*> (m_gameObjects[3])))
-		TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
+		TheGame::Instance()->getStateMachine()->pushState(new GameOverState());*/
 }
 
 void PlayState::render()
@@ -35,23 +47,12 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
-	if (!TheTextureManager::Instance()->load("./Images/pixil-frame-0.png", "PlayerT", TheGame::Instance()->getRenderer()))
-		return false;
+	StateParser stateParser;
 
-	if (!TheTextureManager::Instance()->load("./Images/pixil-frame-1.png", "Enemy1", TheGame::Instance()->getRenderer()))
-		return false;
+	stateParser.parseState("Datadrivenjson.json", s_playID, &m_gameObjects, &m_textureIDList);
 
-	//GameObject* player = new Player(new LoaderParams((720 / 2), 100, 85, 100, "PlayerT", 5));
-	//GameObject* enemy_1 = new Enemy(new LoaderParams(620, 400, 85, 100, "Enemy1", 5));
-	//GameObject* enemy_2 = new Enemy(new LoaderParams(520, 500, 85, 100, "Enemy1", 5));
-	//GameObject* enemy_3 = new Enemy(new LoaderParams(420, 600, 85, 100, "Enemy1", 5));
+	std::cout << "Entering PlayState\n";
 
-	/*m_gameObjects.push_back(player);
-	m_gameObjects.push_back(enemy_1);
-	m_gameObjects.push_back(enemy_2);
-	m_gameObjects.push_back(enemy_3);*/
-
-	std::cout << "entering PlayState\n";
 	return true;
 }
 
@@ -62,10 +63,11 @@ bool PlayState::onExit()
 
 	m_gameObjects.clear();
 
-	TheTextureManager::Instance()->clearFromTextureMap("PlayerT");
-	TheTextureManager::Instance()->clearFromTextureMap("Enemy1");
+	// clear the texture manager
+	for (int i = 0; i < m_textureIDList.size(); i++)
+		TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
 
-	std::cout << "exiting PlayState\n";
+	std::cout << "exiting PlayState" << std::endl;
 	return true;
 }
 
@@ -86,9 +88,9 @@ bool PlayState::checkCollision(SDLGameObject* p1, SDLGameObject* p2)
 	topB = p2->getPosition().getY();
 	bottomB = p2->getPosition().getY() + p2->getHeight();
 
-	if (bottomA <= (topB+10)) { return false; }
-	if (topA >= (bottomB-10)) { return false; }
-	if (rightA <= (leftB+25)) { return false; }
-	if (leftA >= (rightB-25)) { return false; }
+	if (bottomA <= topB) { return false; }
+	if (topA >= bottomB) { return false; }
+	if (rightA <= leftB+25) { return false; }
+	if (leftA >= rightB-25) { return false; }
 	return true;
 }

@@ -95,6 +95,43 @@
           "textureID": "hinchaB1"
         }
       ]
+    },
+    {
+      "StateID": "PAUSE",
+      "Textures": [
+        {
+          "filename": "./Images/play-button.png",
+          "ID": "playbutton"
+        },
+        {
+          "filename": "./Images/menu-button.png",
+          "ID": "menubutton"
+        }
+      ],
+      "Objects": [
+        {
+          "type": "MenuButton",
+          "x": 410,
+          "y": 240,
+          "width": 120,
+          "height": 66,
+          "numFrames": 2,
+          "callbackID": 1,
+          "animSpeed": 1,
+          "textureID": "menubutton"
+        },
+        {
+          "type": "MenuButton",
+          "x": 190,
+          "y": 240,
+          "width": 120,
+          "height": 66,
+          "numFrames": 2,
+          "callbackID": 2,
+          "animSpeed": 1,
+          "textureID": "playbutton"
+        }
+      ]
     }
   ]
 }

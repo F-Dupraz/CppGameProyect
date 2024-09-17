@@ -19,7 +19,7 @@ void PlayState::update()
 	{
 		if (i > 0)
 		{
-			if (checkCollision(dynamic_cast<SDLGameObject*> (m_gameObjects[0]), dynamic_cast<SDLGameObject*> (m_gameObjects[1])))
+			if (checkCollision(dynamic_cast<SDLGameObject*> (m_gameObjects[0]), dynamic_cast<SDLGameObject*> (m_gameObjects[i])))
 			{
 				TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
 				break;
